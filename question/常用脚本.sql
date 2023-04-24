@@ -44,7 +44,7 @@ show VARIABLES like 'transaction_isolation';
 show VARIABLES like '%connections%';
 SELECT user,max_user_connections from mysql.user where user = 'User';
 
-
+-- 查看引擎
 show ENGINES;
 
 -- 开启日志模式 (会导致 general_log.CSV 非常大)
@@ -79,3 +79,6 @@ set global max_allowed_packet = (1024*1024*1024)
 -- 指定库
 mysql -e "show databases;" -h127.0.0.1 -uUser -pPassword -P3306 | grep -Ev "Database|information_schema|mysql|sys|performance_schema" | xargs mysqldump -h127.0.0.1 -uUser -pPassword -t -P3306 --databases ob_basedb ob_tradingconfigdb ob_riskdb > /home/archforce/mysql/all_20210109.sql
 mysql -e "show databases;" -h127.0.0.1 -uUser -pPassword -P3306 | grep -Ev "Database|information_schema|mysql|sys|performance_schema" | xargs mysqldump -h127.0.0.1 -uUser -pPassword -t -P3306 --all-databases > /home/archforce/mysql/all_20210109.sql
+
+-- 查看 MySQL 数据库表的大小并降序排列
+SELECT table_schema AS '数据库名', table_name AS '表名', round(((data_length + index_length) / 1024 / 1024), 2) AS '表大小(MB)' FROM information_schema.TABLES WHERE table_schema = 'ob_tradingconfigdb' ORDER BY (data_length + index_length) DESC;
