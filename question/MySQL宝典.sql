@@ -118,6 +118,10 @@ set global max_allowed_packet = (1024*1024*1024)
 mysql -e "show databases;" -h127.0.0.1 -uUser -pPassword -P3306 | grep -Ev "Database|information_schema|mysql|sys|performance_schema" | xargs mysqldump -h127.0.0.1 -uUser -pPassword -t -P3306 --databases ob_basedb ob_tradingconfigdb ob_riskdb > /home/archforce/mysql/all_20210109.sql
 mysql -e "show databases;" -h127.0.0.1 -uUser -pPassword -P3306 | grep -Ev "Database|information_schema|mysql|sys|performance_schema" | xargs mysqldump -h127.0.0.1 -uUser -pPassword -t -P3306 --all-databases > /home/archforce/mysql/all_20210109.sql
 
+-- 指定库忽略表
+mysqldump -hlocalhost -P3306 -ubos -p --routines --set-gtid-purged=OFF --databases appconfigdb cm_basedb cm_bosgwdb cm_clearingdb cm_dpdb cm_exportdb cm_importdb cm_tradingconfigdb cm_tradingdb mddb operationdb userdb --ignore-table=operationdb.t_audit_operation_log --ignore-table=operationdb.t_endofday_log --ignore-table=operationdb.t_error_log --ignore-table=operationdb.t_heartbeat_time --ignore-table=operationdb.t_indicator_la > /home/archforce/atp_bos_yyyymmdd.sql
+
+
 -- 选择具体的database，执行sql文件
 mysql -h127.0.0.1 -uUser -pPassword -P3306 basedb < /home/archforce/mysql/all_20210109.sql
 mysql -h127.0.0.1 -uUser -pPassword -P3306 < /home/archforce/mysql/all_20210109.sql
