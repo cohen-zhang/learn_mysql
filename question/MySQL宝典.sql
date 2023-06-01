@@ -82,8 +82,8 @@ show VARIABLES like 'transaction_isolation';
 show VARIABLES like '%connections%';
 SELECT user,max_user_connections from mysql.user where user = 'User';
 
-
-show ENGINES;
+-- 查看支持的存储引擎
+show ENGINES; 
 
 -- 开启日志模式 (会导致 general_log.CSV 非常大)
 -- set GLOBAL log_output = 'TABLE';  SET GLOBAL general_log = 'ON';
