@@ -42,7 +42,38 @@ SELECT @@tx_isolation;
 | 可重复读 | 读取到已提交的数据 | 读取到已提交的数据 |
 | 串行化 | 读取到已提交的数据 | 读取到已提交的数据 |
 
-用于查询持续时间超过 50 秒的事务：
+## 事务的隔离级别的实现（可重复读）
+
+### 事务的启动
+
+```sql
+START TRANSACTION;
+```
+
+### 事务的提交
+
+```sql
+COMMIT;
+```
+
+### 事务的回滚
+
+```sql
+ROLLBACK;
+```
+
+### 事务的自动提交
+
+MySQL 默认是自动提交事务的，即每条 SQL 语句都是一个事务，如果要关闭自动提交事务，可以使用以下命令：
+
+```sql
+SET autocommit=0;
+```
+
+建议你总是使用 set autocommit=1, 通过显式语句的方式来启动事务。 
+
+
+用于查询持续时间超过 50 秒的长连接事务：
 
 ```sql
 SELECT * FROM INFORMATION_SCHEMA.INNODB_TRX WHERE TIME_TO_SEC(timediff(now(),trx_started))>50;
