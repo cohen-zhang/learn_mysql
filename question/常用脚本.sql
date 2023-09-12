@@ -7,6 +7,8 @@ SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCK_WAITS;
 -- 查询时间超过 60s 的长事务
 select * from information_schema.INNODB_TRX where TIME_TO_SEC(TIMEDIFF(now(),trx_started)) > 60;
 
+-- 老鸟区别新手，会在不知道一张表大小的时候，在生产环境执行 select * from table 会导致全表扫描，从而导致数据库卡死，需要加上 limit 1
+select * from big_table LIMIT 1;
 
 -- 正在查询的 sql :合并查询，多线程 （mybatis ）
 show PROCESSLIST ;
