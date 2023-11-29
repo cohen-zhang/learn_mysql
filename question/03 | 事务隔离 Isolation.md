@@ -5,7 +5,7 @@
 - 原子性（Atomicity）
 - 一致性（Consistency）
 - 隔离性（Isolation）
-- 持久性（Durability）
+- 持久性（Durability）：英文读音：/dərə'bɪlətɪ/ ，和 persistence 的区别是，persistence 是指持久化，而 durability 是指持久性。
 
 ## 如果没有事务隔离，会出现哪些问题？
 
