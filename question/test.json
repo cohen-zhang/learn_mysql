@@ -1,0 +1,11 @@
+{
+    "instType": "FundAdjust",
+    "data": {
+        "fundAccount": "10000000000",
+        "accountId": "A621839789",
+        "branchId": "",
+        "operation": "6",
+        "value": "100",
+        "remark": ""
+    }
+}
