@@ -23,5 +23,11 @@ Answer:
 总之，全表扫描查询可能会对业务系统造成一些不良的影响，但您可以通过上述优化策略来尽量减少这些影响并提高查询性能。
 
 
-在 VsCode 中搜索 字符串 usedTime: 后面紧跟5位数字的正式表达式是: 
-7211922023121100000119
+Q：使用 mysqldump -u root -p --all-databases 进行备份的数据库，备份完之后新建了一个数据库用户 user2，然后恢复备份，为什么这个 user2 还在？
+
+A： 使用 mysqldump -u root -p --all-databases 命令进行备份时，只会备份数据库中的表结构和数据，不会备份数据库用户
+
+```sql 
+-- 备份数据库用户
+mysqldump --databases {数据库名} -u root -p --add-privileges > backup.sql
+```
