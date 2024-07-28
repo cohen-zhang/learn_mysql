@@ -17,7 +17,7 @@ mkdir /data/mysql/data
 在迁移数据之前，需要先对 MySQL 数据进行备份，以保护数据的完整性和安全性。可以使用 mysqldump 工具或其他第三方工具来备份 MySQL 数据库。
 
 ```shell
-mysqldump -u root -p --all-databases > /data/mysql/mysql_backup.sql
+mysqldump -u root -p --all-databases > /data/mysql/mysql_backup_$(date +%Y%m%d).sql
 ```
 
 注意，备份的文件大小可能很大，需要足够的磁盘空间来存储。

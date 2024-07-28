@@ -3,11 +3,11 @@
 mysql -e "show databases;" -h127.0.0.1 -uUser -pPassword -P3306 | grep -Ev "Database|information_schema|mysql|sys|performance_schema" | xargs mysqldump -h127.0.0.1 -uUser -pPassword -t -P3306 --databases ob_basedb ob_tradingconfigdb ob_riskdb > /home/archforce/mysql/all_20210109.sql
 mysql -e "show databases;" -h127.0.0.1 -uUser -pPassword -P3306 | grep -Ev "Database|information_schema|mysql|sys|performance_schema" | xargs mysqldump -h127.0.0.1 -uUser -pPassword -t -P3306 --all-databases > /home/archforce/mysql/all_20210109.sql
 
--- 指定库忽略表
-mysqldump -hlocalhost -P3306 -ubos -p --routines --set-gtid-purged=OFF --databases appconfigdb cm_basedb cm_bosgwdb cm_clearingdb cm_dpdb cm_exportdb cm_importdb cm_tradingconfigdb cm_tradingdb mddb operationdb userdb --ignore-table=operationdb.t_audit_operation_log --ignore-table=operationdb.t_endofday_log --ignore-table=operationdb.t_error_log --ignore-table=operationdb.t_heartbeat_time --ignore-table=operationdb.t_indicator_la > /home/archforce/atp_bos_yyyymmdd.sql
+-- 指定库忽略表(常用)，gtid 模式
+mysqldump -hlocalhost -P3306 -ubos -p --routines --set-gtid-purged=OFF --databases appconfigdb cm_basedb cm_bosgwdb cm_clearingdb cm_dpdb cm_exportdb cm_importdb cm_tradingconfigdb cm_tradingdb mddb operationdb userdb --ignore-table=operationdb.t_audit_operation_log --ignore-table=operationdb.t_endofday_log --ignore-table=operationdb.t_error_log --ignore-table=operationdb.t_heartbeat_time --ignore-table=operationdb.t_indicator_la > /home/archforce/atp_bos_$(date +%Y%m%d).sql
 
--- 把select脚本查询的结果导出到 .sql 文件
-mysql -h127.0.0.1 -uUser -pPassword -P3306 -e "select * from ob_tradingconfigdb.t_ors_special_order_routing" > /home/archforce/mysql/all_20210109.sql
+-- 把select脚本查询的结果备份导出到 .sql 文件
+mysql -h127.0.0.1 -uUser -pPassword -P3306 -e "select * from ob_tradingconfigdb.t_ors_special_order_routing" > /home/archforce/mysql/all_$(date +%Y%m%d).sql
 
 -- 执行sql文件, 使用 select concat 拼接成 insert 语句，并使用 'into outfile' 把结果集输出到 .sql 文件
 select * from ob_tradingconfigdb.t_ors_special_order_routing into outfile '/home/archforce/mysql/all_20210109.sql';
