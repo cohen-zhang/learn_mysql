@@ -1,5 +1,10 @@
 # 事务隔离 Isolation
 
+并不是所有的 MySQL 存储引擎都支持事务，比如原生的 MyISAM 就不支持事务。这也是为什么 MyISAM 被 InnoDB 取代的原因之一。
+
+举个最经典的转账例子，假设 A 账户有 100 元，B 账户有 200 元，现在 A 要向 B 转账 50 元，那么这个转账操作就是一个事务。
+
+
 ## 事务的特性(AICD)
 
 - 原子性（Atomicity）
@@ -24,7 +29,13 @@
 
 不同数据库的默认隔离级别不同，**MySQL的默认隔离级别是可重复读**，Oracle的默认隔离级别是读已提交。
 
-查看MySQL的隔离级别：
+
+
+## 配置方法
+
+启动参数： transaction-isolation
+-- 查看 MySQL 的隔离级别：
+mysql> show variables like 'transaction_isolation';
 
 ```sql
 SELECT @@tx_isolation;
