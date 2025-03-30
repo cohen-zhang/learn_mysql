@@ -42,7 +42,7 @@ show CREATE TABLE ob_tradingdb.t_order;
 show VARIABLES like '%innodb_lock_wait_timeout%';
 -- 隔离级别
 show VARIABLES like 'transaction_isolation';
--- 最大可链接数
+-- 最大可连接数
 show VARIABLES like '%connections%';
 SELECT user,max_user_connections from mysql.user where user = 'User';
 
